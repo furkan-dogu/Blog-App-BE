@@ -32,7 +32,7 @@ app.use(require("./src/middlewares/queryHandler"))
 /* ------------------------------------------------------- */
 //! Routes:
 
-// app.use("/", require("./src/routes"))
+app.use("/", require("./src/routes"))
 
 app.all('/', (req, res) => {
     res.send({
