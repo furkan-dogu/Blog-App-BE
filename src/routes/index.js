@@ -11,7 +11,10 @@ router.use("/tokens", require("./token"))
 // Auth
 router.use("/auth", require("./auth"))
 
-// Auth
+// Category
 router.use("/categories", require("./category"))
+
+// Blog
+router.use("/blogs", require("./blog"))
 
 module.exports = router
