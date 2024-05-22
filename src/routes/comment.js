@@ -3,6 +3,9 @@
 const router = require("express").Router()
 
 const comment = require("../controllers/comment");
+const { isLogin } = require("../middlewares/permissions")
+
+router.use(isLogin)
 
 router.route("/")
     .get(comment.list)
