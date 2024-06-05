@@ -20,4 +20,7 @@ router.use("/blogs", require("./blog"))
 // Comment
 router.use("/comments", require("./comment"))
 
+// Document
+router.use("/documents", require("./document"))
+
 module.exports = router

@@ -13,9 +13,10 @@
       "name": "ISC"
     }
   },
-  "host": "https://blog-app-api-iota.vercel.app",
+  "host": "127.0.0.1:8000",
   "basePath": "/",
   "schemes": [
+    "http",
     "https"
   ],
   "securityDefinitions": {
@@ -33,54 +34,6 @@
     "application/json"
   ],
   "paths": {
-    "/auth/login": {
-      "post": {
-        "tags": [
-          "Authentication"
-        ],
-        "summary": "Login",
-        "description": "Login with email and password",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "example": "test@test.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "test"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/auth/logout": {
-      "get": {
-        "tags": [
-          "Authentication"
-        ],
-        "summary": "Logout",
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/users/": {
       "get": {
         "tags": [
@@ -131,10 +84,6 @@
                 "image": {
                   "type": "string",
                   "example": "https://wwww......"
-                },
-                "city": {
-                  "type": "string",
-                  "example": "test"
                 },
                 "bio": {
                   "type": "string",
@@ -215,10 +164,6 @@
                 "image": {
                   "type": "string",
                   "example": "https://wwww......"
-                },
-                "city": {
-                  "type": "string",
-                  "example": "test"
                 },
                 "bio": {
                   "type": "string",
@@ -301,10 +246,6 @@
                   "type": "string",
                   "example": "https://wwww......"
                 },
-                "city": {
-                  "type": "string",
-                  "example": "test"
-                },
                 "bio": {
                   "type": "string",
                   "example": "test"
@@ -320,13 +261,61 @@
         }
       }
     },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login",
+        "description": "Login with username (or email) and password for get simpleToken",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "test"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "aA?123456"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "simpleToken: Logout",
+        "description": "Delete token key.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/categories/": {
       "get": {
         "tags": [
           "Categories"
         ],
         "summary": "List Categories",
-        "description": "\r  You can send query with endpoint for filter[], search[], sort[], page and limit.\r  <ul> Examples:\r   <li>URL/?<b>filter[field1]=value1&filter[field2]=value2</b></li>\r   <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>\r   <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>\r   <li>URL/?<b>page=2&limit=1</b></li>\r  </ul>\r  ",
+        "description": "\r  You can use <u>filter[] & search[] & sort[] & page & limit</u> queries with endpoint.\r  <ul> Examples:\r   <li>URL/?<b>filter[field1]=value1&filter[field2]=value2</b></li>\r   <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>\r   <li>URL/?<b>sort[field1]=asc&sort[field2]=desc</b></li>\r   <li>URL/?<b>limit=10&page=1</b></li>\r  </ul>\r  ",
         "responses": {
           "200": {
             "description": "OK"
@@ -349,7 +338,7 @@
               "properties": {
                 "name": {
                   "type": "string",
-                  "example": "category"
+                  "example": "Test Category"
                 }
               }
             }
@@ -405,7 +394,7 @@
               "properties": {
                 "name": {
                   "type": "string",
-                  "example": "category"
+                  "example": "Test Category"
                 }
               }
             }
@@ -462,7 +451,7 @@
               "properties": {
                 "name": {
                   "type": "string",
-                  "example": "category"
+                  "example": "Test Category"
                 }
               }
             }
@@ -482,13 +471,6 @@
         ],
         "summary": "List Blogs",
         "description": "\r  You can use <u>filter[] & search[] & sort[] & page & limit</u> queries with endpoint.\r  <ul> Examples:\r   <li>URL/?<b>filter[field1]=value1&filter[field2]=value2</b></li>\r   <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>\r   <li>URL/?<b>sort[field1]=asc&sort[field2]=desc</b></li>\r   <li>URL/?<b>limit=10&page=1</b></li>\r  </ul>\r  ",
-        "parameters": [
-          {
-            "name": "author",
-            "in": "query",
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -581,9 +563,25 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
+                "categoryId": {
                   "type": "string",
-                  "example": "Blog 1"
+                  "example": "65343222b67e9681f937f101"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Blog Title 1"
+                },
+                "content": {
+                  "type": "string",
+                  "example": "Blog Content 1"
+                },
+                "image": {
+                  "type": "string",
+                  "example": "http://imageURL"
+                },
+                "isPublish": {
+                  "type": "boolean",
+                  "example": true
                 }
               }
             }
@@ -638,9 +636,25 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
+                "categoryId": {
                   "type": "string",
-                  "example": "Blog 1"
+                  "example": "65343222b67e9681f937f101"
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Blog Title 1"
+                },
+                "content": {
+                  "type": "string",
+                  "example": "Blog Content 1"
+                },
+                "image": {
+                  "type": "string",
+                  "example": "http://imageURL"
+                },
+                "isPublish": {
+                  "type": "boolean",
+                  "example": true
                 }
               }
             }
@@ -724,13 +738,17 @@
             "schema": {
               "type": "object",
               "properties": {
+                "userId": {
+                  "type": "string",
+                  "example": "jdkv52acav633sdv9s332v6s6"
+                },
                 "blogId": {
                   "type": "string",
-                  "example": "65343222b67e9681f937f201"
+                  "example": "jdkv52acav633sdv9s332v789"
                 },
                 "comment": {
                   "type": "string",
-                  "example": "Comment 1"
+                  "example": "Test Comment"
                 }
               }
             }
@@ -784,9 +802,17 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
+                "userId": {
                   "type": "string",
-                  "example": "Comment 1"
+                  "example": "jdkv52acav633sdv9s332v6s6"
+                },
+                "blogId": {
+                  "type": "string",
+                  "example": "jdkv52acav633sdv9s332v789"
+                },
+                "comment": {
+                  "type": "string",
+                  "example": "Test Comment"
                 }
               }
             }
@@ -841,9 +867,17 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
+                "userId": {
                   "type": "string",
-                  "example": "Comment 1"
+                  "example": "jdkv52acav633sdv9s332v6s6"
+                },
+                "blogId": {
+                  "type": "string",
+                  "example": "jdkv52acav633sdv9s332v789"
+                },
+                "comment": {
+                  "type": "string",
+                  "example": "Test Comment"
                 }
               }
             }
