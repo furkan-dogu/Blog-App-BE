@@ -34,6 +34,7 @@ module.exports = {
                 in: 'body',
                 required: true,
                 schema: {
+                    "userId": "65343222b67e9681f937f101",
                     "categoryId": "65343222b67e9681f937f101",
                     "title": "Blog Title 1",
                     "content": "Blog Content 1",
@@ -57,11 +58,45 @@ module.exports = {
         */
         const data = await Blog.findOne({ _id: req.params.id })
 
+        // Ziyaretçi sayacını artır
+        data.countOfVisitors += 1;
+        await data.save();
+
         res.status(200).send({
             error: false,
             data
         })
     },
+    //     /*
+    //         #swagger.tags = ["Blogs"]
+    //         #swagger.summary = "Get Single Blog"
+    //     */
+    //     try {
+    //         const data = await Blog.findOne({ _id: req.params.id });
+
+    //         if (!data) {
+    //             return res.status(404).send({
+    //                 error: true,
+    //                 message: "Blog not found"
+    //             });
+    //         }
+
+    //         // Ziyaretçi sayacını artır
+    //         data.countOfVisitors += 1;
+    //         await data.save();
+
+    //         res.status(200).send({
+    //             error: false,
+    //             data
+    //         });
+    //     } catch (error) {
+    //         res.status(500).send({
+    //             error: true,
+    //             message: "Server error",
+    //             details: error.message
+    //         });
+    //     }
+    // },
 
     update: async (req, res) => {
         /*
@@ -71,6 +106,7 @@ module.exports = {
                 in: 'body',
                 required: true,
                 schema: {
+                    "userId": "65343222b67e9681f937f101",
                     "categoryId": "65343222b67e9681f937f101",
                     "title": "Blog Title 1",
                     "content": "Blog Content 1",

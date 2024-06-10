@@ -491,6 +491,10 @@
             "schema": {
               "type": "object",
               "properties": {
+                "userId": {
+                  "type": "string",
+                  "example": "65343222b67e9681f937f101"
+                },
                 "categoryId": {
                   "type": "string",
                   "example": "65343222b67e9681f937f101"
@@ -563,6 +567,10 @@
             "schema": {
               "type": "object",
               "properties": {
+                "userId": {
+                  "type": "string",
+                  "example": "65343222b67e9681f937f101"
+                },
                 "categoryId": {
                   "type": "string",
                   "example": "65343222b67e9681f937f101"
@@ -636,6 +644,10 @@
             "schema": {
               "type": "object",
               "properties": {
+                "userId": {
+                  "type": "string",
+                  "example": "65343222b67e9681f937f101"
+                },
                 "categoryId": {
                   "type": "string",
                   "example": "65343222b67e9681f937f101"

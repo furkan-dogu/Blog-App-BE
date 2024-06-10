@@ -8,14 +8,12 @@ const BlogSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true,
-            unique: true
         },
 
         categoryId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Category",
             required: true,
-            unique: true
         },
 
         title: {
@@ -65,19 +63,5 @@ const BlogSchema = new mongoose.Schema(
         timestamps: true
     }
 )
-
-BlogSchema.post('findOne', async function(doc) {
-    if (doc) {
-        doc.countOfVisitor += 1;
-        await doc.save();
-    }
-});
-
-BlogSchema.post('findById', async function(doc) {
-    if (doc) {
-        doc.countOfVisitor += 1;
-        await doc.save();
-    }
-});
 
 module.exports = mongoose.model("Blog", BlogSchema);
