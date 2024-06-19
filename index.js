@@ -60,4 +60,4 @@ app.listen(PORT, () => console.log('http://127.0.0.1:' + PORT))
 /* ------------------------------------------------------- */
 //! Syncronization 
 
-// require('./src/helpers/sync')() // !!! Bütün dataları siler
+// require('./src/helpers/sync')() 
