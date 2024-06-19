@@ -97,9 +97,10 @@ module.exports = {
             #swagger.tags = ["Comments"]
             #swagger.summary = "Delete Comment"
         */
-        const customFilter = req.user?.isAdmin ? { _id: req.params.id } : { _id: req.user._id }
+        // const customFilter = req.user?.isAdmin ? { _id: req.params.id } : { _id: req.user._id }
 
-        const data = await Comment.deleteOne(customFilter)
+        // const data = await Comment.deleteOne(customFilter)
+        const data = await Comment.deleteOne({ _id: req.params.id })
 
         res.status(data.deletedCount ? 204 : 404).send({
             error: !data.deletedCount,
