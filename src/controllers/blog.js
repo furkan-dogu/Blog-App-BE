@@ -20,7 +20,7 @@ module.exports = {
         const data = await res.getModelList(Blog, {}, [
             "categoryId",
             { path: "userId", select: "username image createdAt updatedAt" },
-            "comments",
+            { path: "comments", populate: { path: "userId", select: "username image createdAt updatedAt" }},
     ])
 
         res.status(200).send({
@@ -28,7 +28,7 @@ module.exports = {
             details: await res.getModelListDetails(Blog, {}, [
                 "categoryId",
                 { path: "userId", select: "username image createdAt updatedAt" },
-                "comments",
+                { path: "comments", populate: { path: "userId", select: "username image createdAt updatedAt" }},
         ]),
             data
         })
@@ -66,7 +66,7 @@ module.exports = {
         */
         const data = await Blog.findOne({ _id: req.params.id }).populate([
             { path: "userId", select: "username image createdAt updatedAt" }, 
-            { path: "comments" }
+            { path: "comments", populate: { path: "userId", select: "username image createdAt updatedAt" }},
         ])
 
         // Ziyaretçi sayacını artır
