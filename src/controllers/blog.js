@@ -17,11 +17,19 @@ module.exports = {
                 </ul>
             `
         */
-        const data = await res.getModelList(Blog)
+        const data = await res.getModelList(Blog, {}, [
+            "categoryId",
+            { path: "userId", select: "username image createdAt updatedAt" },
+            "comments",
+    ])
 
         res.status(200).send({
             error: false,
-            details: await res.getModelListDetails(Blog),
+            details: await res.getModelListDetails(Blog, {}, [
+                "categoryId",
+                { path: "userId", select: "username image createdAt updatedAt" },
+                "comments",
+        ]),
             data
         })
     },
