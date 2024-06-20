@@ -56,7 +56,10 @@ module.exports = {
             #swagger.tags = ["Blogs"]
             #swagger.summary = "Get Single Blog"
         */
-        const data = await Blog.findOne({ _id: req.params.id }).populate([{ path: "userId", select: "username image createdAt updatedAt" }])
+        const data = await Blog.findOne({ _id: req.params.id }).populate([
+            { path: "userId", select: "username image createdAt updatedAt" }, 
+            { path: "comments" }
+        ])
 
         // Ziyaretçi sayacını artır
         data.countOfVisitors += 1;
