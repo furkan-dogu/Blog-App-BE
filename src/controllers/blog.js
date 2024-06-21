@@ -8,30 +8,44 @@ module.exports = {
             #swagger.tags = ["Blogs"]
             #swagger.summary = "List Blogs"
             #swagger.description = `
-                You can use <u>filter[] & search[] & sort[] & page & limit</u> queries with endpoint.
+                You can use <u>filter[] & search[] & sort[] & page & limit & author</u> queries with endpoint.
                 <ul> Examples:
                     <li>URL/?<b>filter[field1]=value1&filter[field2]=value2</b></li>
                     <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
                     <li>URL/?<b>sort[field1]=asc&sort[field2]=desc</b></li>
                     <li>URL/?<b>limit=10&page=1</b></li>
+                    <li>URL?<b>author=userId</b></li>
                 </ul>
             `
         */
-        const data = await res.getModelList(Blog, {}, [
-            "categoryId",
-            { path: "userId", select: "username image createdAt updatedAt" },
-            { path: "comments", populate: { path: "userId", select: "username image createdAt updatedAt" }},
-    ])
 
-        res.status(200).send({
-            error: false,
-            details: await res.getModelListDetails(Blog, {}, [
+        if (req.query.author) {
+            const data = await Blog.find({ userId: req.query.author });
+        
+            res.status(200).send({
+                error: false,
+                details: await res.getModelListDetails(Blog, {
+                    userId: req.query.author,
+                }),
+                data,
+            });
+        } else {
+            const data = await res.getModelList(Blog, { isPublish: true }, [
                 "categoryId",
                 { path: "userId", select: "username image createdAt updatedAt" },
                 { path: "comments", populate: { path: "userId", select: "username image createdAt updatedAt" }},
-        ]),
-            data
-        })
+            ]);
+
+            res.status(200).send({
+                error: false,
+                details: await res.getModelListDetails(Blog, { isPublish: true }, [
+                    "categoryId",
+                    { path: "userId", select: "username image createdAt updatedAt" },
+                    { path: "comments", populate: { path: "userId", select: "username image createdAt updatedAt" }},
+                ]),
+                data
+            })
+        }
     },
 
     create: async (req, res) => {
