@@ -20,13 +20,21 @@ module.exports = {
         */
 
         if (req.query.author) {
-            const data = await Blog.find({ userId: req.query.author });
+            const data = await Blog.find({ userId: req.query.author }).populate([
+                "categoryId",
+                { path: "userId", select: "username image createdAt updatedAt" },
+                { path: "comments", populate: { path: "userId", select: "username image createdAt updatedAt" }},
+            ]);
         
             res.status(200).send({
                 error: false,
                 details: await res.getModelListDetails(Blog, {
                     userId: req.query.author,
-                }),
+                }, [
+                    "categoryId",
+                    { path: "userId", select: "username image createdAt updatedAt" },
+                    { path: "comments", populate: { path: "userId", select: "username image createdAt updatedAt" }},
+                ]),
                 data,
             });
         } else {
