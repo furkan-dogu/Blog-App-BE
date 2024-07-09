@@ -3,18 +3,16 @@
 const router = require("express").Router()
 
 const comment = require("../controllers/comment");
-const { isLogin } = require("../middlewares/permissions")
-
-router.use(isLogin)
+const { isLogin } = require("../middlewares/permissions");
 
 router.route("/")
     .get(comment.list)
-    .post(comment.create)
+    .post(isLogin, comment.create);
 
 router.route("/:id")
     .get(comment.read)
-    .put(comment.update)
-    .patch(comment.update)
-    .delete(comment.delete)
+    .put(isLogin, comment.update)
+    .patch(isLogin, comment.update)
+    .delete(isLogin, comment.delete);
 
 module.exports = router

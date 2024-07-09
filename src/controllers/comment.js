@@ -84,7 +84,7 @@ module.exports = {
         // const customFilter = req.user?.isAdmin ? { _id: req.params.id } : { _id: req.user._id }
 
         // const data = await Comment.updateOne(customFilter, req.body, { runValidators: true })
-        const data = await Comment.updateOne({ _id: req.params.id })
+        const data = await Comment.updateOne({ _id: req.params.id }, req.body, { runValidators: true })
 
         res.status(202).send({
             error: false,
