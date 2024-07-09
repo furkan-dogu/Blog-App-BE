@@ -26,6 +26,7 @@ This project is a RESTful API developed using Node.js and Express. This API is d
 - **cors**: A node.js package for providing a Connect/Express middleware that can be used to enable CORS (Cross-Origin Resource Sharing) with various options.
 - **express-async-errors**: A small utility to handle errors in async/await routes in Express.
 - **redoc-express**: A middleware for hosting OpenAPI (Swagger) documentation using ReDoc.
+- **request-ip**: A simple way to retrieve a user's IP address in a Node.js application.
 - **swagger-autogen**: A tool to automatically generate Swagger/OpenAPI documentation from existing code.
 - **swagger-ui-express**: A middleware for serving the Swagger UI bound to your Swagger/OpenAPI specification.
 

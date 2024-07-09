@@ -29,6 +29,8 @@ app.use(require("./src/middlewares/authentication"))
 
 app.use(require("./src/middlewares/queryHandler"))
 
+app.use(require("./src/middlewares/requestIp"))
+
 /* ------------------------------------------------------- */
 //! Routes:
 

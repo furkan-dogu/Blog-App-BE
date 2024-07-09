@@ -86,14 +86,13 @@ module.exports = {
             #swagger.tags = ["Blogs"]
             #swagger.summary = "Get Single Blog"
         */
-        const data = await Blog.findOne({ _id: req.params.id }).populate([
+
+        const ip = req.clientIp;
+
+        const data = await Blog.findOneAndUpdate({ _id: req.params.id }, { $addToSet: { visitors: ip } }, { new: true }).populate([
             { path: "userId", select: "username image createdAt updatedAt" }, 
             { path: "comments", populate: { path: "userId", select: "username image createdAt updatedAt" }},
         ])
-
-        // Ziyaretçi sayacını artır
-        data.countOfVisitors += 1;
-        await data.save();
 
         res.status(200).send({
             error: false,

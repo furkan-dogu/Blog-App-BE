@@ -53,14 +53,19 @@ const BlogSchema = new mongoose.Schema(
             },
         ],
 
+        visitors: [],
+
         countOfVisitors: {
             type: Number,
-            default: 0
+            get: function () {
+                return this.visitors.length;
+            },
         }
     },
     {
         collection: "blogs",
-        timestamps: true
+        timestamps: true,
+        toJSON: { getters: true }
     }
 )
 
