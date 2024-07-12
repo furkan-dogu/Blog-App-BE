@@ -38,7 +38,7 @@ module.exports = {
                 data,
             });
         } else {
-            const data = await res.getModelList(Blog, {}, [
+            const data = await res.getModelList(Blog, { isPublish: true }, [
                 "categoryId",
                 { path: "userId", select: "username image createdAt updatedAt" },
                 { path: "comments", populate: { path: "userId", select: "username image createdAt updatedAt" }},
@@ -46,7 +46,7 @@ module.exports = {
 
             res.status(200).send({
                 error: false,
-                details: await res.getModelListDetails(Blog, {}, [
+                details: await res.getModelListDetails(Blog, { isPublish: true }, [
                     "categoryId",
                     { path: "userId", select: "username image createdAt updatedAt" },
                     { path: "comments", populate: { path: "userId", select: "username image createdAt updatedAt" }},
